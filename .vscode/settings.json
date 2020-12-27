@@ -158,6 +158,5 @@
         "tectonic"
       ]
     }
-  ],
-  "latex-workshop.latex.recipe.default": "latexmk (XeLaTeX)"
+  ]
 }
