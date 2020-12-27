@@ -33,7 +33,11 @@ jobs:
       - name: Restore latex files
         if: steps.tex-cache.outputs.cache-hit == 'true'
         run: |
-          find .latex/ -mindepth 1 -maxdepth 1 | read && cp -r .latex/* . || echo "No .latex/ directory found. skip"
+          if [ -n "$(find .latex/ -mindepth 1 -maxdepth 1) ]; then
+            cp -r .latex/* .
+          else
+            echo "No .latex/ directory found. skip"
+          fi
       - name: Typeset it
         run: |
           ls
