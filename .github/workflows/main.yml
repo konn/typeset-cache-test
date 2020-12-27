@@ -18,19 +18,18 @@ jobs:
         with:
           # A list of files, directories, and wildcard patterns to cache and restore
           path: |
-            ./.latex
+            ./
+            !**/*.tex
+            !**/*.sty
+            main.pdf
           # An explicit key for restoring and saving the cache
           key: ${{github.ref}}-${{ runner.os }}
           restore-keys: |
             ${{github.ref}}-
             master-
-      - name: Creates .latex directory if missing
-        if: steps.tex-cache.outputs.cache-hit != 'true'
-        run: "mkdir -p ./.latex"
-
       - name: Typeset it
         run: |
-          cluttex --output-directory=$(pwd)/.latex -e lualatex main.tex
+          latexmk main.tex
 
       - name: Upload a Build Artifact
         uses: actions/upload-artifact@v2.2.1
