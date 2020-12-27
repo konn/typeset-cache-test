@@ -18,18 +18,32 @@ jobs:
         with:
           # A list of files, directories, and wildcard patterns to cache and restore
           path: |
-            ./
-            !**/*.tex
-            !**/*.sty
-            main.pdf
+            main.fdb_latexmk
+            .latex
+            
           # An explicit key for restoring and saving the cache
           key: ${{github.ref}}-${{ runner.os }}
           restore-keys: |
             ${{github.ref}}-
             master-
+      - name: Create .latex directory if missing
+        if: steps.tex-cache.outputs.cache-hit != 'true'
+        run: mkdir -p .latex
+      - name: Restore latex files
+        if: steps.tex-cache.outputs.cache-hit == 'true'
+        run: |
+          cp -r .latex/* .
       - name: Typeset it
         run: |
           latexmk -pdflua main.tex
+      
+      - name: Store latex generated files
+        run: |
+          for fdb in $(ls **/*.fdb_latexmk); do
+              for i in $(cat $fdb | texlua ./extract-generateds.lua); do
+                cp $(dirname $fdb)/$i .latex/$(dirname $fdb)/$i
+              done
+          done
 
       - name: Upload a Build Artifact
         uses: actions/upload-artifact@v2.2.1
