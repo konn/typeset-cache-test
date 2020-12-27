@@ -25,8 +25,8 @@ jobs:
             ${{github.ref}}-
             master-
       - name: Creates .latex directory if missing
-        if: steps.tex-cache.outeputs.cache-hit != 'true'
-        run: "mkdir ./.latex"
+        if: steps.tex-cache.outputs.cache-hit != 'true'
+        run: "mkdir -p ./.latex"
 
       - name: Typeset it
         run: |
