@@ -29,7 +29,7 @@ jobs:
 
       - name: Typeset it
         run: |
-          cluttex --output-directory=$(pwd)/.latex -e lualatex main.pdf
+          cluttex --output-directory=$(pwd)/.latex -e lualatex main.tex
 
       - name: Upload a Build Artifact
         uses: actions/upload-artifact@v2.2.1
