@@ -19,7 +19,7 @@ jobs:
           # A list of files, directories, and wildcard patterns to cache and restore
           path: |
             main.fdb_latexmk
-            .latex
+            .latex/
             
           # An explicit key for restoring and saving the cache
           key: ${{github.ref}}-${{ runner.os }}
@@ -32,7 +32,7 @@ jobs:
       - name: Restore latex files
         if: steps.tex-cache.outputs.cache-hit == 'true'
         run: |
-          find .latex/ -maxdepth 1 -maxdepth 1 | read && cp -r .latex/* .
+          find .latex/ -maxdepth 1 -maxdepth 1 | read && cp -r .latex/* . || echo "No .latex/ directory found. skip"
       - name: Typeset it
         run: |
           latexmk -pdflua main.tex
