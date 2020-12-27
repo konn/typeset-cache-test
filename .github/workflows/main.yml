@@ -36,6 +36,7 @@ jobs:
           find .latex/ -maxdepth 1 -maxdepth 1 | read && cp -r .latex/* . || echo "No .latex/ directory found. skip"
       - name: Typeset it
         run: |
+          ls
           latexmk -pdflua main.tex
       
       - name: Store latex generated files
@@ -46,6 +47,7 @@ jobs:
                 cp $(dirname $fdb)/$i .latex/$(dirname $fdb)/$i
               done
           done
+          ls -r ./.latex
 
       - name: Upload a Build Artifact
         uses: actions/upload-artifact@v2.2.1
