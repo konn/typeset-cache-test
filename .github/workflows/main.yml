@@ -1,0 +1,17 @@
+name: Test Typesetting with Existing Actions
+on: 
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  build:
+    runs-on:  ubuntu-18.04
+
+    steps:
+      - name: Typeset it
+        uses: fudan-mse/latex-action@1.0.5
+        with:
+          root_file: main.tex
+
