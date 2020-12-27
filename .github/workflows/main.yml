@@ -11,6 +11,7 @@ jobs:
     container: docker://konn/texlive2020-slim:20201227.3
 
     steps:
+      - uses: actions/checkout@v2
       - name: Cache
         id: tex-cache
         uses: actions/cache@v2.1.3
