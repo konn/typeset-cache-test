@@ -22,7 +22,7 @@ jobs:
             .latex/
             
           # An explicit key for restoring and saving the cache
-          key: ${{github.ref}}-${{ runner.os }}-${{ hashFiles('**/*.tex', '**/*.sty', '**/*.fdb_latexmk') }}
+          key: ${{github.ref}}-${{ runner.os }}-${{ hashFiles('**/*.tex', '**/*.sty', '**/*.fdb_latexmk', 'extract-generateds.lua') }}
           restore-keys: |
             ${{github.ref}}-${{ runner.os }}-
             ${{github.ref}}-

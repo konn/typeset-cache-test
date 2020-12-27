@@ -13,9 +13,7 @@ for line in io.lines() do
     if file_entry then
       local local_name = string.match(file_entry, "^\"([^/].*)\"$")
       if local_name and generated then
-        if not string.match(local_name,"%.pdf$") then
-          table.insert( generated_files,local_name )
-        end
+        table.insert( generated_files,local_name )
       end
     end
   else
