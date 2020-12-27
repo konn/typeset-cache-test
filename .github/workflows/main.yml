@@ -42,6 +42,7 @@ jobs:
         run: |
           for fdb in $(find . -name "*.fdb_latexmk"); do
               for i in $(cat $fdb | texlua ./extract-generateds.lua); do
+                echo "cp $(dirname $fdb)/$i .latex/$(dirname $fdb)/$i"
                 cp $(dirname $fdb)/$i .latex/$(dirname $fdb)/$i
               done
           done
