@@ -32,7 +32,7 @@ jobs:
       - name: Restore latex files
         if: steps.tex-cache.outputs.cache-hit == 'true'
         run: |
-          cp -r .latex/* .
+          find .latex/ -maxdepth 1 -maxdepth 1 | read && cp -r .latex/* .
       - name: Typeset it
         run: |
           latexmk -pdflua main.tex
@@ -40,7 +40,9 @@ jobs:
       - name: Store latex generated files
         run: |
           for fdb in $(ls **/*.fdb_latexmk); do
+              echo "processing: $fdb"
               for i in $(cat $fdb | texlua ./extract-generateds.lua); do
+                echo "copying $(dirname $fdb)/${i}"
                 cp $(dirname $fdb)/$i .latex/$(dirname $fdb)/$i
               done
           done
