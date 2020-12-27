@@ -8,7 +8,7 @@ on:
 jobs:
   build:
     runs-on:  ubuntu-18.04
-    container: docker://konn/texlive2020-slim:20201227.1
+    container: docker://konn/texlive2020-slim:20201227.2
 
     steps:
       - name: Cache
